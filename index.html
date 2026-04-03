@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magtec Serviços Eletrônicos</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #1A3A6B;
+    --azul-medio: #1E5FA8;
+    --vermelho: #C0281E;
+    --vermelho-escuro: #8B1A12;
+    --branco: #ffffff;
+    --cinza-claro: #F4F6FA;
+    --cinza-texto: #555;
+    --whatsapp: #25D366;
+    --font-titulo: 'Barlow Condensed', sans-serif;
+    --font-corpo: 'Barlow', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--font-corpo); color: #222; background: var(--branco); }
+
+  /* NAV */
+  nav {
+    background: var(--azul);
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo svg { height: 36px; }
+  .nav-logo-text { line-height: 1; }
+  .nav-logo-text .n1 { color: var(--vermelho); font-family: var(--font-titulo); font-size: 20px; font-weight: 800; letter-spacing: 0.05em; }
+  .nav-logo-text .n2 { color: rgba(255,255,255,0.75); font-family: var(--font-titulo); font-size: 10px; font-weight: 600; letter-spacing: 0.15em; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--branco); }
+  .nav-cta {
+    background: var(--whatsapp);
+    color: var(--branco) !important;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+  }
+  .nav-cta:hover { background: #1ebe58 !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: white; display: block; }
+  .mobile-menu {
+    display: none;
+    background: var(--azul);
+    padding: 16px 5%;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mobile-menu a { color: rgba(255,255,255,0.9); text-decoration: none; font-size: 15px; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  .mobile-menu.open { display: flex; }
+
+  /* PAGE SECTIONS */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* HERO */
+  .hero {
+    background: var(--azul);
+    padding: 72px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 420px; height: 420px;
+    border-radius: 50%;
+    background: rgba(192,40,30,0.08);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: 80px; bottom: -100px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(30,95,168,0.2);
+  }
+  .hero-inner { max-width: 700px; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(192,40,30,0.2);
+    color: #f0877f;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-left: 3px solid var(--vermelho);
+  }
+  .hero h1 {
+    font-family: var(--font-titulo);
+    font-size: clamp(36px, 6vw, 58px);
+    font-weight: 800;
+    color: var(--branco);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: 0.01em;
+  }
+  .hero h1 span { color: var(--vermelho); }
+  .hero p {
+    color: rgba(255,255,255,0.72);
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+    max-width: 500px;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--whatsapp);
+    color: var(--branco);
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-primary:hover { background: #1ebe58; transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--branco);
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1.5px solid rgba(255,255,255,0.4);
+    transition: border-color 0.2s, transform 0.1s;
+  }
+  .btn-secondary:hover { border-color: var(--branco); transform: translateY(-1px); }
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    margin-top: 52px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    flex-wrap: wrap;
+  }
+  .stat { }
+  .stat-num {
+    font-family: var(--font-titulo);
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--vermelho);
+    line-height: 1;
+  }
+  .stat-label { color: rgba(255,255,255,0.6); font-size: 12px; margin-top: 4px; letter-spacing: 0.05em; }
+
+  /* SECTION COMMON */
+  .section { padding: 64px 5%; }
+  .section-alt { background: var(--cinza-claro); }
+  .section-dark { background: var(--azul); }
+  .section-title {
+    font-family: var(--font-titulo);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--azul);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+  .section-dark .section-title { color: var(--branco); }
+  .section-sub {
+    color: var(--cinza-texto);
+    font-size: 15px;
+    margin-bottom: 40px;
+    max-width: 520px;
+  }
+  .section-dark .section-sub { color: rgba(255,255,255,0.6); }
+  .accent-line {
+    width: 48px; height: 4px;
+    background: var(--vermelho);
+    margin-bottom: 16px;
+    border-radius: 2px;
+  }
+
+  /* DIFERENCIAIS */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .diff-card {
+    background: var(--branco);
+    border-radius: 8px;
+    padding: 24px 20px;
+    border: 1px solid #e4e8f0;
+    border-top: 3px solid var(--vermelho);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .diff-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,58,107,0.1); }
+  .diff-icon {
+    width: 44px; height: 44px;
+    background: var(--azul);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .diff-icon svg { width: 22px; height: 22px; fill: var(--branco); }
+  .diff-title { font-weight: 600; font-size: 15px; color: var(--azul); margin-bottom: 6px; }
+  .diff-text { font-size: 13px; color: var(--cinza-texto); line-height: 1.6; }
+
+  /* SERVIÇOS */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .service-card {
+    background: var(--branco);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e4e8f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .service-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(26,58,107,0.12); }
+  .service-header {
+    background: var(--azul);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .service-num {
+    font-family: var(--font-titulo);
+    font-size: 32px;
+    font-weight: 800;
+    color: rgba(255,255,255,0.2);
+    line-height: 1;
+    min-width: 36px;
+  }
+  .service-header h3 {
+    font-family: var(--font-titulo);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--branco);
+  }
+  .service-body { padding: 20px; }
+  .service-body p { font-size: 14px; color: var(--cinza-texto); line-height: 1.65; margin-bottom: 14px; }
+  .service-tag {
+    display: inline-block;
+    background: var(--cinza-claro);
+    color: var(--azul);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin: 2px 2px 2px 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* PRODUTOS */
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .produto-card {
+    background: var(--branco);
+    border: 1px solid #e4e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .produto-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,58,107,0.1); }
+  .produto-img {
+    height: 120px;
+    background: var(--cinza-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #e4e8f0;
+  }
+  .produto-img span { font-size: 12px; color: #aaa; }
+  .produto-info { padding: 16px; }
+  .produto-nome { font-weight: 600; font-size: 14px; color: var(--azul); margin-bottom: 4px; }
+  .produto-desc { font-size: 12px; color: var(--cinza-texto); margin-bottom: 10px; line-height: 1.5; }
+  .produto-cta {
+    font-size: 12px;
+    color: var(--vermelho);
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* CTA BAND */
+  .cta-band {
+    background: var(--vermelho);
+    padding: 40px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cta-band h2 {
+    font-family: var(--font-titulo);
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--branco);
+    max-width: 500px;
+    line-height: 1.15;
+  }
+  .cta-band h2 span { color: rgba(255,255,255,0.65); }
+  .btn-branco {
+    background: var(--branco);
+    color: var(--vermelho);
+    padding: 14px 28px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.1s, opacity 0.2s;
+  }
+  .btn-branco:hover { opacity: 0.92; transform: translateY(-1px); }
+
+  /* SOBRE */
+  .sobre-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .sobre-foto {
+    background: var(--cinza-claro);
+    border-radius: 8px;
+    height: 340px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e4e8f0;
+    position: relative;
+    overflow: hidden;
+  }
+  .sobre-foto::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 6px;
+    background: var(--vermelho);
+  }
+  .sobre-foto span { color: #bbb; font-size: 13px; }
+  .sobre-texto h2 {
+    font-family: var(--font-titulo);
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--azul);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .sobre-texto h2 span { color: var(--vermelho); }
+  .sobre-texto p { font-size: 15px; color: var(--cinza-texto); line-height: 1.75; margin-bottom: 14px; }
+  .sobre-nums {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 28px;
+  }
+  .sobre-num-card {
+    background: var(--azul);
+    border-radius: 6px;
+    padding: 16px;
+    text-align: center;
+  }
+  .sobre-num-card .num {
+    font-family: var(--font-titulo);
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--vermelho);
+    line-height: 1;
+  }
+  .sobre-num-card .lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  /* CONTATO */
+  .contato-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .contato-info h3 {
+    font-family: var(--font-titulo);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--azul);
+    margin-bottom: 20px;
+  }
+  .info-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .info-dot {
+    width: 10px; height: 10px;
+    background: var(--vermelho);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+  .info-item p { font-size: 14px; color: #444; line-height: 1.6; }
+  .info-item strong { color: var(--azul); }
+  .mapa {
+    background: var(--cinza-claro);
+    border-radius: 8px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e4e8f0;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: #aaa;
+  }
+  .form-contato { }
+  .form-contato h3 {
+    font-family: var(--font-titulo);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--azul);
+    margin-bottom: 20px;
+  }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { font-size: 12px; font-weight: 600; color: var(--azul); display: block; margin-bottom: 5px; letter-spacing: 0.04em; }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1.5px solid #dde2ec;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: var(--font-corpo);
+    color: #333;
+    background: var(--branco);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--azul-medio); }
+  .form-group textarea { height: 90px; resize: vertical; }
+  .btn-form {
+    background: var(--vermelho);
+    color: var(--branco);
+    padding: 13px 28px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100%;
+    font-family: var(--font-corpo);
+    transition: background 0.2s;
+  }
+  .btn-form:hover { background: var(--vermelho-escuro); }
+
+  /* FOOTER */
+  footer {
+    background: #0f2347;
+    padding: 40px 5% 20px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-brand .n1 { color: var(--vermelho); font-family: var(--font-titulo); font-size: 22px; font-weight: 800; }
+  .footer-brand .n2 { color: rgba(255,255,255,0.5); font-family: var(--font-titulo); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; }
+  .footer-brand p { color: rgba(255,255,255,0.55); font-size: 13px; margin-top: 12px; line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { color: var(--branco); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; margin-bottom: 14px; }
+  .footer-col a,
+  .footer-col p { color: rgba(255,255,255,0.55); font-size: 13px; display: block; margin-bottom: 8px; text-decoration: none; line-height: 1.5; }
+  .footer-col a:hover { color: rgba(255,255,255,0.9); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .footer-bottom p { color: rgba(255,255,255,0.35); font-size: 12px; }
+
+  /* WHATSAPP FLUTUANTE */
+  .wa-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--whatsapp);
+    color: var(--branco);
+    border-radius: 50px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    z-index: 99;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wa-float:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.5); }
+  .wa-float svg { width: 20px; height: 20px; fill: white; }
+
+  /* PAGE HEADER (páginas internas) */
+  .page-header {
+    background: var(--azul);
+    padding: 48px 5% 40px;
+  }
+  .page-header h1 {
+    font-family: var(--font-titulo);
+    font-size: 42px;
+    font-weight: 800;
+    color: var(--branco);
+    margin-bottom: 8px;
+  }
+  .page-header p { color: rgba(255,255,255,0.65); font-size: 15px; }
+  .breadcrumb { color: rgba(255,255,255,0.45); font-size: 12px; margin-bottom: 16px; }
+  .breadcrumb span { color: rgba(255,255,255,0.7); }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .sobre-layout,
+    .contato-layout { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; gap: 24px; }
+    .hero-stats { gap: 20px; }
+    .cta-band { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#" class="nav-logo" onclick="showPage('home')">
+    <svg viewBox="0 0 48 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2 2L15 22L2 36" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M15 22L28 2" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="24" y="8" width="22" height="28" rx="2" fill="#C0281E"/>
+    </svg>
+    <div class="nav-logo-text">
+      <div class="n1">MAGTEC</div>
+      <div class="n2">SERVIÇOS ELETRÔNICOS</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a href="#" onclick="showPage('home')">Início</a>
+    <a href="#" onclick="showPage('servicos')">Serviços e Produtos</a>
+    <a href="#" onclick="showPage('sobre')">Sobre</a>
+    <a href="#" onclick="showPage('contato')">Contato</a>
+    <a href="https://api.whatsapp.com/send?phone=554832630890" class="nav-cta" target="_blank">WhatsApp</a>
+  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#" onclick="showPage('home');toggleMenu()">Início</a>
+  <a href="#" onclick="showPage('servicos');toggleMenu()">Serviços e Produtos</a>
+  <a href="#" onclick="showPage('sobre');toggleMenu()">Sobre</a>
+  <a href="#" onclick="showPage('contato');toggleMenu()">Contato</a>
+  <a href="https://api.whatsapp.com/send?phone=554832630890" target="_blank">WhatsApp</a>
+</div>
+
+<!-- ================================ PAGE: HOME ================================ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Tijucas · SC</div>
+      <h1>Seu eletrônico<br>com problema?<br><span>A gente resolve.</span></h1>
+      <p>Conserto de TVs, microondas e controles remotos. Atendimento no local ou na sua casa. Peças originais em estoque.</p>
+      <div class="hero-btns">
+        <a href="https://api.whatsapp.com/send?phone=554832630890&text=Olá!%20Vim%20pelo%20site%20e%20preciso%20de%20assistência." class="btn-primary" target="_blank">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.124 1.535 5.854L.057 23.5l5.818-1.524A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.836 9.836 0 01-5.017-1.374l-.36-.214-3.727.977.995-3.635-.235-.374A9.836 9.836 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+          Falar no WhatsApp
+        </a>
+        <a href="#" onclick="showPage('servicos')" class="btn-secondary">Ver serviços</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">38</div>
+          <div class="stat-label">ANOS DE EXPERIÊNCIA</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">TIPOS DE SERVIÇO</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2</div>
+          <div class="stat-label">FORMAS DE ATENDIMENTO</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="accent-line"></div>
+    <div class="section-title">Por que escolher a Magtec?</div>
+    <div class="section-sub">Décadas de experiência a serviço dos moradores de Tijucas e região.</div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        </div>
+        <div class="diff-title">38 anos de experiência</div>
+        <div class="diff-text">Magnobaldo atua no setor desde 1987, com conhecimento profundo em todas as marcas e modelos.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+        </div>
+        <div class="diff-title">Atendimento domiciliar</div>
+        <div class="diff-text">Recebemos no nosso local ou vamos até a sua casa para entrega e instalação do equipamento.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="diff-title">Estoque de peças</div>
+        <div class="diff-text">Controles remotos, cabos HDMI, RCA e TVs de 32" a 65" disponíveis para pronta entrega.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .9h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.02z"/></svg>
+        </div>
+        <div class="diff-title">WhatsApp direto</div>
+        <div class="diff-text">Recebe mensagens diariamente. Entre em contato, tire dúvidas e agende seu atendimento.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="accent-line"></div>
+    <div class="section-title">Serviços em destaque</div>
+    <div class="section-sub">Consertamos o que os outros não consertam.</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-num">01</div>
+          <h3>Conserto de TV</h3>
+        </div>
+        <div class="service-body">
+          <p>Diagnóstico e reparo de TVs de 32" a 65", todas as marcas. Placa, fonte, tela e backlight.</p>
+          <span class="service-tag">SAMSUNG</span>
+          <span class="service-tag">LG</span>
+          <span class="service-tag">PHILIPS</span>
+          <span class="service-tag">SONY</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-num">02</div>
+          <h3>Microondas</h3>
+        </div>
+        <div class="service-body">
+          <p>Reparo elétrico e mecânico com diagnóstico preciso. Atendimento rápido e peças originais.</p>
+          <span class="service-tag">TODAS AS MARCAS</span>
+          <span class="service-tag">PEÇAS ORIGINAIS</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-num">03</div>
+          <h3>Controle remoto</h3>
+        </div>
+        <div class="service-body">
+          <p>Conserto e venda de controles remotos. Recuperação de teclas, circuito interno e programação.</p>
+          <span class="service-tag">CONSERTO</span>
+          <span class="service-tag">VENDA</span>
+          <span class="service-tag">PROGRAMAÇÃO</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Precisa de orçamento? <span>Sem compromisso.</span></h2>
+    <a href="https://api.whatsapp.com/send?phone=554832630890&text=Olá!%20Quero%20um%20orçamento." class="btn-branco" target="_blank">Pedir orçamento agora</a>
+  </div>
+
+</div>
+
+<!-- ================================ PAGE: SERVIÇOS ================================ -->
+<div id="page-servicos" class="page">
+  <div class="page-header">
+    <div class="breadcrumb">Início <span>/ Serviços e Produtos</span></div>
+    <h1>Serviços e Produtos</h1>
+    <p>Tudo o que a Magtec oferece para você</p>
+  </div>
+
+  <section class="section">
+    <div class="accent-line"></div>
+    <div class="section-title">Serviços</div>
+    <div class="section-sub">Atendemos no local ou em domicílio. Seg–Sex, 09h–12h e 14h–18h.</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-num">01</div>
+          <h3>Conserto de TV</h3>
+        </div>
+        <div class="service-body">
+          <p>Trabalhamos com TVs de 32" a 65", LED e LCD, de todas as marcas. Diagnóstico de placa principal, fonte, backlight e tela. Orçamento informado antes do serviço.</p>
+          <span class="service-tag">SAMSUNG</span>
+          <span class="service-tag">LG</span>
+          <span class="service-tag">PHILIPS</span>
+          <span class="service-tag">SONY</span>
+          <span class="service-tag">TCL</span>
+          <span class="service-tag">AOC</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-num">02</div>
+          <h3>Microondas</h3>
+        </div>
+        <div class="service-body">
+          <p>Diagnóstico completo de falhas elétricas e mecânicas. Substituição de magnetron, prato, motor e componentes eletrônicos. Peças com garantia.</p>
+          <span class="service-tag">CONSUL</span>
+          <span class="service-tag">ELECTROLUX</span>
+          <span class="service-tag">BRASTEMP</span>
+          <span class="service-tag">OUTRAS</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-header">
+          <div class="service-num">03</div>
+          <h3>Controle remoto</h3>
+        </div>
+        <div class="service-body">
+          <p>Conserto de controles com teclas travadas, sem resposta ou com circuit danificado. Também realizamos programação universal e venda de controles novos.</p>
+          <span class="service-tag">CONSERTO</span>
+          <span class="service-tag">PROGRAMAÇÃO</span>
+          <span class="service-tag">VENDA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="accent-line"></div>
+    <div class="section-title">Produtos à venda</div>
+    <div class="section-sub">Estoque disponível no local. Consulte disponibilidade pelo WhatsApp.</div>
+    <div class="produtos-grid">
+      <div class="produto-card">
+        <div class="produto-img"><span>foto — controles</span></div>
+        <div class="produto-info">
+          <div class="produto-nome">Controles remotos</div>
+          <div class="produto-desc">Originais e universais para TV, DVD e outros aparelhos.</div>
+          <a href="https://api.whatsapp.com/send?phone=554832630890" class="produto-cta" target="_blank">Consultar preço →</a>
+        </div>
+      </div>
+      <div class="produto-card">
+        <div class="produto-img"><span>foto — cabos</span></div>
+        <div class="produto-info">
+          <div class="produto-nome">Cabos e acessórios</div>
+          <div class="produto-desc">Cabos HDMI, RCA, antena e demais conectores.</div>
+          <a href="https://api.whatsapp.com/send?phone=554832630890" class="produto-cta" target="_blank">Consultar preço →</a>
+        </div>
+      </div>
+      <div class="produto-card">
+        <div class="produto-img"><span>foto — TVs</span></div>
+        <div class="produto-info">
+          <div class="produto-nome">TVs 32" a 65"</div>
+          <div class="produto-desc">Televisores novos e seminovos. Diversas marcas e tamanhos.</div>
+          <a href="https://api.whatsapp.com/send?phone=554832630890" class="produto-cta" target="_blank">Consultar preço →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Dúvida sobre algum serviço? <span>Fale com a Magtec.</span></h2>
+    <a href="https://api.whatsapp.com/send?phone=554832630890" class="btn-branco" target="_blank">Chamar no WhatsApp</a>
+  </div>
+</div>
+
+<!-- ================================ PAGE: SOBRE ================================ -->
+<div id="page-sobre" class="page">
+  <div class="page-header">
+    <div class="breadcrumb">Início <span>/ Sobre</span></div>
+    <h1>Sobre a Magtec</h1>
+    <p>Nossa história e como trabalhamos</p>
+  </div>
+
+  <section class="section">
+    <div class="sobre-layout">
+      <div class="sobre-foto">
+        <span>foto — Magnobaldo no espaço de trabalho</span>
+      </div>
+      <div class="sobre-texto">
+        <div class="accent-line"></div>
+        <h2>38 anos consertando o que <span>importa.</span></h2>
+        <p>A Magtec Serviços Eletrônicos nasceu da paixão pela tecnologia e da vontade de oferecer um serviço honesto, acessível e de qualidade para os moradores de Tijucas e região.</p>
+        <p>Magnobaldo Santos Da Silva iniciou sua trajetória na área de eletrônica por uma oportunidade que virou vocação. Desde então, nunca parou — e hoje atende uma ampla gama de clientes, de todas as idades e perfis.</p>
+        <p>Com apenas um colaborador, a Magtec mantém o atendimento personalizado: você fala diretamente com quem vai cuidar do seu equipamento.</p>
+        <div class="sobre-nums">
+          <div class="sobre-num-card">
+            <div class="num">38</div>
+            <div class="lbl">ANOS DE EXPERIÊNCIA</div>
+          </div>
+          <div class="sobre-num-card">
+            <div class="num">4+</div>
+            <div class="lbl">TIPOS DE SERVIÇO</div>
+          </div>
+          <div class="sobre-num-card">
+            <div class="num">2</div>
+            <div class="lbl">FORMAS DE ATENDIMENTO</div>
+          </div>
+          <div class="sobre-num-card">
+            <div class="num">1</div>
+            <div class="lbl">TIME DEDICADO</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="accent-line"></div>
+    <div class="section-title">Como trabalhamos</div>
+    <div class="section-sub">Simples e direto ao ponto — da forma que o Magnobaldo gosta.</div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .9h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.02z"/></svg>
+        </div>
+        <div class="diff-title">1. Contato pelo WhatsApp</div>
+        <div class="diff-text">Mande uma mensagem descrevendo o problema. O Magnobaldo responde e orienta os próximos passos.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div class="diff-title">2. Leva ou a gente busca</div>
+        <div class="diff-text">Você pode trazer o equipamento até a Praça Nereu Ramos 161, ou combinar a busca na sua casa.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="diff-title">3. Diagnóstico e orçamento</div>
+        <div class="diff-text">Avaliação técnica com orçamento transparente antes de qualquer serviço ser realizado.</div>
+      </div>
+      <div class="diff-card">
+        <div class="diff-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="diff-title">4. Entrega e instalação</div>
+        <div class="diff-text">Pronto o conserto, entregamos pessoalmente — ou levamos até a sua casa para instalar.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-band">
+    <h2>Pronto para resolver? <span>A gente tá aqui.</span></h2>
+    <a href="https://api.whatsapp.com/send?phone=554832630890" class="btn-branco" target="_blank">Falar com a Magtec</a>
+  </div>
+</div>
+
+<!-- ================================ PAGE: CONTATO ================================ -->
+<div id="page-contato" class="page">
+  <div class="page-header">
+    <div class="breadcrumb">Início <span>/ Contato</span></div>
+    <h1>Contato</h1>
+    <p>Fale com a Magtec — respondemos pelo WhatsApp todos os dias úteis</p>
+  </div>
+
+  <section class="section">
+    <div class="contato-layout">
+      <div class="contato-info">
+        <h3>Onde nos encontrar</h3>
+        <div class="mapa">mapa embed — Praça Nereu Ramos, 161 · Tijucas-SC</div>
+        <div class="info-item">
+          <div class="info-dot"></div>
+          <p><strong>Endereço</strong><br>Praça Nereu Ramos, 161 - 2<br>Centro · Tijucas - SC · 88200-000</p>
+        </div>
+        <div class="info-item">
+          <div class="info-dot"></div>
+          <p><strong>Horário de funcionamento</strong><br>Segunda a sexta: 09h–12h e 14h–18h<br>Sábado e domingo: fechado</p>
+        </div>
+        <div class="info-item">
+          <div class="info-dot"></div>
+          <p><strong>WhatsApp</strong><br>(48) 3263-0890</p>
+        </div>
+        <div class="info-item">
+          <div class="info-dot"></div>
+          <p><strong>E-mail</strong><br>magtec.serv@gmail.com</p>
+        </div>
+        <div class="info-item">
+          <div class="info-dot"></div>
+          <p><strong>Facebook</strong><br><a href="https://www.facebook.com/magtecservices" target="_blank" style="color:var(--azul-medio);">facebook.com/magtecservices</a></p>
+        </div>
+      </div>
+      <div class="form-contato">
+        <h3>Envie uma mensagem</h3>
+        <div class="form-group">
+          <label>Seu nome</label>
+          <input type="text" placeholder="Como posso te chamar?">
+        </div>
+        <div class="form-group">
+          <label>Telefone / WhatsApp</label>
+          <input type="tel" placeholder="(48) 9 9999-9999">
+        </div>
+        <div class="form-group">
+          <label>Tipo de equipamento</label>
+          <select>
+            <option value="">Selecione...</option>
+            <option>TV</option>
+            <option>Microondas</option>
+            <option>Controle remoto</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Descreva o problema</label>
+          <textarea placeholder="Ex: TV Samsung 43 não liga, tela preta..."></textarea>
+        </div>
+        <button class="btn-form" onclick="alert('Mensagem enviada! Em breve entraremos em contato.')">Enviar mensagem</button>
+        <div style="text-align: center; margin-top: 14px; color: var(--cinza-texto); font-size: 13px;">ou</div>
+        <a href="https://api.whatsapp.com/send?phone=554832630890&text=Olá!%20Vim%20pelo%20site%20e%20preciso%20de%20assistência." class="btn-primary" target="_blank" style="margin-top: 10px; display: flex; justify-content: center; gap: 8px;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.124 1.535 5.854L.057 23.5l5.818-1.524A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.836 9.836 0 01-5.017-1.374l-.36-.214-3.727.977.995-3.635-.235-.374A9.836 9.836 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+          Chamar direto no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER (em todas as páginas via JS) -->
+<footer id="main-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="n1">MAGTEC</div>
+      <div class="n2">SERVIÇOS ELETRÔNICOS</div>
+      <p>38 anos de experiência em conserto de TVs, microondas e controles. Atendimento em Tijucas e região.</p>
+    </div>
+    <div class="footer-col">
+      <h4>NAVEGAÇÃO</h4>
+      <a href="#" onclick="showPage('home')">Início</a>
+      <a href="#" onclick="showPage('servicos')">Serviços e Produtos</a>
+      <a href="#" onclick="showPage('sobre')">Sobre</a>
+      <a href="#" onclick="showPage('contato')">Contato</a>
+    </div>
+    <div class="footer-col">
+      <h4>CONTATO</h4>
+      <p>(48) 3263-0890</p>
+      <p>magtec.serv@gmail.com</p>
+      <p>Praça Nereu Ramos, 161<br>Centro · Tijucas - SC</p>
+      <p>Seg–Sex · 09h–18h</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Magtec Serviços Eletrônicos. Todos os direitos reservados.</p>
+    <p>Tijucas · SC · Brasil</p>
+  </div>
+</footer>
+
+<!-- WhatsApp float -->
+<a href="https://api.whatsapp.com/send?phone=554832630890&text=Olá!%20Vim%20pelo%20site." class="wa-float" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.124 1.535 5.854L.057 23.5l5.818-1.524A11.944 11.944 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.836 9.836 0 01-5.017-1.374l-.36-.214-3.727.977.995-3.635-.235-.374A9.836 9.836 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+  WhatsApp
+</a>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+}
+</script>
+</body>
+</html>
