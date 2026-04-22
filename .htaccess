@@ -1,0 +1,21 @@
+# Forçar HTTPS (ativar na hospedagem com SSL)
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Headers de segurança
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# Bloquear acesso direto a arquivos sensíveis
+<FilesMatch "\.(sql|log|env|md|gitignore)$">
+    Require all denied
+</FilesMatch>
+
+# Desativar listagem de diretórios
+Options -Indexes

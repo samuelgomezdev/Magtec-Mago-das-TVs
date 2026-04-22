@@ -200,7 +200,7 @@ $statusColors = ['novo' => '#C0281E', 'lido' => '#1E5FA8', 'respondido' => '#28a
           <td data-label="Nome"><strong><?= htmlspecialchars($c['nome']) ?></strong></td>
           <td data-label="Contato">
             <?php if ($c['telefone']): ?>
-              <a href="https://api.whatsapp.com/send?phone=55<?= preg_replace('/\D/', '', $c['telefone']) ?>&text=Olá+<?= urlencode($c['nome']) ?>%2C+recebemos+sua+mensagem+na+Magtec!" target="_blank" class="tel-link">
+              <a href="https://api.whatsapp.com/send?phone=55<?= preg_replace('/\D/', '', $c['telefone']) ?>&text=Olá+<?= urlencode($c['nome']) ?>%2C+recebemos+sua+mensagem+na+Magtec!" target="_blank" rel="noopener noreferrer" class="tel-link">
                 📱 <?= htmlspecialchars($c['telefone']) ?>
               </a>
             <?php else: ?>

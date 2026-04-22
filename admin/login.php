@@ -9,7 +9,16 @@ require_once __DIR__ . '/../config/database.php';
 
 $erro = '';
 
+// CSRF: gera token na sessão e valida no POST
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
+        $erro = 'Requisição inválida. Tente novamente.';
+    } else {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     $usuario = trim($_POST['usuario'] ?? '');
     $senha   = trim($_POST['senha'] ?? '');
 
@@ -38,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $erro = 'Preencha todos os campos.';
     }
+    } // fim else CSRF
 }
 ?>
 <!DOCTYPE html>
@@ -109,6 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="erro"><?= htmlspecialchars($erro) ?></div>
   <?php endif; ?>
   <form method="POST">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
     <div class="form-group">
       <label for="usuario">USUÁRIO</label>
       <input type="text" id="usuario" name="usuario" autocomplete="username" required>
